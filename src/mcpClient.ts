@@ -1,5 +1,7 @@
 import { Client } from '@modelcontextprotocol/sdk/client/index.js';
 import { StdioClientTransport } from '@modelcontextprotocol/sdk/client/stdio.js';
+import { execFileSync } from 'node:child_process';
+import { existsSync } from 'node:fs';
 
 /**
  * The MCP transport expects a `Record<string, string>`, but Node's `process.env`
@@ -13,6 +15,43 @@ function sanitizeEnv(env: NodeJS.ProcessEnv): Record<string, string> {
     }
   }
   return result;
+}
+
+/**
+ * In Obsidian's Electron main process, `process.execPath` is the Obsidian app
+ * binary, NOT Node — spawning it would never start the MCP server. Resolve a
+ * real Node executable instead. Under plain Node, `process.execPath` is node
+ * itself and is used directly.
+ */
+function resolveNodeExecutable(): string {
+  const execPath = process.execPath || '';
+  if (/\bnode(\.exe)?$/.test(execPath)) {
+    return execPath; // running under plain Node
+  }
+
+  if (process.env.NODE && existsSync(process.env.NODE)) {
+    return process.env.NODE;
+  }
+
+  const candidates = [
+    '/opt/homebrew/bin/node',
+    '/usr/local/bin/node',
+    '/usr/bin/node',
+    `${process.env.HOME}/.local/bin/node`,
+  ];
+  for (const candidate of candidates) {
+    if (existsSync(candidate)) {
+      return candidate;
+    }
+  }
+
+  try {
+    return execFileSync('which', ['node'], { encoding: 'utf8' }).trim();
+  } catch {
+    throw new Error(
+      'Could not locate a Node.js executable to run wechatpost-mcp. Install Node.js and make sure it is on PATH.'
+    );
+  }
 }
 
 export interface PublishArgs {
@@ -78,7 +117,7 @@ export class WeChatMCPClient {
     }
 
     const transport = new StdioClientTransport({
-      command: process.execPath,
+      command: resolveNodeExecutable(),
       args: [this.serverPath],
       stderr: 'pipe',
       env: sanitizeEnv(process.env),
