@@ -49,6 +49,25 @@ cp main.js manifest.json "<your-vault>/.obsidian/plugins/obsidian-wechatpost/"
 
 Then in Obsidian: **Settings → Community plugins → Turn off safe mode → Enable "WeChatPost Publisher"**.
 
+## Install via BRAT (recommended for updates)
+
+1. Install the **BRAT** plugin (`obsidian42-brat`) from the community store.
+2. BRAT Settings → **Add Beta plugin** → enter:
+   ```
+   https://github.com/cygnusyang/obsidian-wechatpost
+   ```
+3. Enable **WeChatPost Publisher** in **Settings → Community plugins**.
+4. BRAT will auto-update the plugin when a new GitHub release is tagged.
+
+> **Prerequisite — the engine.** This plugin is a thin client for the `wechatpost-mcp`
+> engine (browser automation). Before first publish, build the engine once on your machine:
+> ```bash
+> cd wechatpost-mcp
+> npm install && npm run build      # → dist/index.js
+> npx playwright install chromium
+> ```
+> Then point the plugin's Settings → **server path** at that `dist/index.js`.
+
 ## Usage
 
 - **Ribbon icon (⇧ arrow)** or **Command palette → "Publish current note to WeChat"**:
