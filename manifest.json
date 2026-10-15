@@ -1,7 +1,7 @@
 {
   "id": "obsidian-wechatpost",
   "name": "WeChatPost Publisher",
-  "version": "0.0.2",
+  "version": "0.1.0",
   "minAppVersion": "1.4.0",
   "description": "Publish Markdown notes directly to WeChat Official Accounts from Obsidian (browser automation, QR login, no AppID needed).",
   "author": "cygnus",
