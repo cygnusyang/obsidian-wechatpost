@@ -43,8 +43,8 @@ npx playwright install chromium
 cd ../obsidian-wechatpost
 npm install
 npm run build            # → main.js
-mkdir -p "<your-vault>/.obsidian/plugins/obsidian-wechatpost"
-cp main.js manifest.json "<your-vault>/.obsidian/plugins/obsidian-wechatpost/"
+mkdir -p "<your-vault>/.obsidian/plugins/wechatpost"
+cp main.js manifest.json "<your-vault>/.obsidian/plugins/wechatpost/"
 ```
 
 Then in Obsidian: **Settings → Community plugins → Turn off safe mode → Enable "WeChatPost Publisher"**.
