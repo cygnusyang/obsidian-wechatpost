@@ -58,16 +58,78 @@ export class WeChatPostSettingTab extends PluginSettingTab {
       );
 
     new Setting(containerEl)
-      .setName('Default collection')
-      .setDesc('WeChat 合集 (collection) to associate with the article.')
+      .setName('Collection property (frontmatter key)')
+      .setDesc(
+        'Note property holding the WeChat 合集 name. Read first; "collection" is always ' +
+          'accepted as an alias. "category" is deliberately not used — it holds a topic ' +
+          'class, not a collection name.'
+      )
       .addText((text) =>
         text
-          .setPlaceholder('智能体')
+          .setPlaceholder('catalog')
+          .setValue(this.plugin.settings.collectionProperty)
+          .onChange(async (value) => {
+            this.plugin.settings.collectionProperty = value.trim();
+            await this.plugin.saveSettings();
+          })
+      );
+
+    new Setting(containerEl)
+      .setName('Default collection (fallback)')
+      .setDesc(
+        'Used only when the note has no collection property. Must match an existing ' +
+          'collection in the WeChat backend exactly.'
+      )
+      .addText((text) =>
+        text
+          .setPlaceholder('工程那些事')
           .setValue(this.plugin.settings.defaultCollection)
           .onChange(async (value) => {
             this.plugin.settings.defaultCollection = value;
             await this.plugin.saveSettings();
           })
+      );
+
+    containerEl.createEl('h3', { text: 'Cover image' });
+
+    new Setting(containerEl)
+      .setName('Use local cover image')
+      .setDesc(
+        'Upload `assets/封面/NN-*.png` as the article cover instead of the AI-generated one. ' +
+          'Off restores the original AI cover flow.'
+      )
+      .addToggle((toggle) =>
+        toggle.setValue(this.plugin.settings.useLocalCover).onChange(async (value) => {
+          this.plugin.settings.useLocalCover = value;
+          await this.plugin.saveSettings();
+          this.display();
+        })
+      );
+
+    new Setting(containerEl)
+      .setName('Ask for the cover on every publish')
+      .setDesc(
+        'Show a picker when publishing. The auto-matched cover is listed first and pre-selected, ' +
+          'so Enter accepts it. Off uses the auto-matched cover without asking.'
+      )
+      .addToggle((toggle) =>
+        toggle.setValue(this.plugin.settings.askForCover).onChange(async (value) => {
+          this.plugin.settings.askForCover = value;
+          await this.plugin.saveSettings();
+        })
+      );
+
+    new Setting(containerEl)
+      .setName('Fall back to AI cover')
+      .setDesc(
+        'When no local cover is found (or the upload fails), use the AI cover instead. ' +
+          'Off aborts the publish instead, so a missing cover is never replaced silently.'
+      )
+      .addToggle((toggle) =>
+        toggle.setValue(this.plugin.settings.coverFallbackToAi).onChange(async (value) => {
+          this.plugin.settings.coverFallbackToAi = value;
+          await this.plugin.saveSettings();
+        })
       );
 
     new Setting(containerEl)

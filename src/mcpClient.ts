@@ -63,6 +63,13 @@ export interface PublishArgs {
   isOriginal?: boolean;
   enableAppreciation?: boolean;
   defaultCollection?: string;
+  /**
+   * Absolute path of a local cover image. When set, the engine skips its AI
+   * cover generator and uploads this file as the article cover instead.
+   */
+  coverImagePath?: string;
+  /** Default true: fall back to the AI cover when the local one cannot be set. */
+  coverFallbackToAi?: boolean;
   publish?: boolean;
   themePreset?: string;
   bodyFontSize?: number;
