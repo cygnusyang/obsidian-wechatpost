@@ -8,3 +8,7 @@ main.js
 # Obsidian / OS
 .DS_Store
 data.json
+
+# Operational artifacts
+.omc/
+.playwright-mcp/
