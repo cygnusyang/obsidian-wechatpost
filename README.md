@@ -159,7 +159,8 @@ Two things it records that are easy to get wrong:
 ## Configuration
 
 Set `serverPath` to the absolute path of `wechatpost-mcp/dist/index.js`. The default points at the
-repo checkout; you can change it in the plugin's Settings tab.
+homedir install `~/.wechatpost/wechatpost-mcp/dist/index.js`; you can change it in the plugin's
+Settings tab.
 
 ## Reusing the engine verbatim
 

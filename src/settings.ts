@@ -1,3 +1,5 @@
+import { homedir } from 'os';
+
 export type ThemePreset = 'classic' | 'magazine' | 'minimal';
 
 export interface ContentStyleSettings {
@@ -34,7 +36,7 @@ export interface WeChatPostSettings {
 }
 
 export const DEFAULT_SETTINGS: WeChatPostSettings = {
-  serverPath: '/Users/cygnus/work/github/wechatpost-mcp/dist/index.js',
+  serverPath: `${homedir()}/.wechatpost/wechatpost-mcp/dist/index.js`,
   defaultAuthor: '',
   digestLength: 120,
   declareOriginal: true,

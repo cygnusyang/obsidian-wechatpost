@@ -65,7 +65,7 @@ export class WeChatPostSettingTab extends PluginSettingTab {
     return [
       {
         type: 'group',
-        heading: 'General',
+        heading: 'Server & defaults',
         items: [
           {
             name: 'wechatpost-mcp server path',

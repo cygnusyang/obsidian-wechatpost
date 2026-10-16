@@ -1,6 +1,6 @@
 {
   "name": "obsidian-wechatpost",
-  "version": "0.1.0",
+  "version": "0.1.4",
   "description": "Publish Markdown notes to WeChat Official Accounts from Obsidian (thin MCP client for wechatpost-mcp).",
   "main": "main.js",
   "scripts": {
