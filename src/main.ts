@@ -272,7 +272,6 @@ export default class WeChatPostPlugin extends Plugin {
       return;
     }
     const scan = scanDeliverables(note.filePath);
-    console.info('[WeChatPost] companion deliverables:', scan);
     new Notice(formatReceipt(scan), 15000);
   }
 
@@ -287,7 +286,6 @@ export default class WeChatPostPlugin extends Plugin {
       new Notice('Rendering WeChat preview...');
       const text = await client.preview(note.content, note.filePath);
       new Notice(text);
-      console.info('[WeChatPost] preview:', text);
     } catch (error) {
       const msg = error instanceof Error ? error.message : String(error);
       console.error('[WeChatPost] preview failed:', error);
