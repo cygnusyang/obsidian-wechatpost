@@ -1,7 +1,7 @@
 {
   "id": "wechatpost",
   "name": "WeChatPost Publisher",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "minAppVersion": "1.4.0",
   "description": "Publish Markdown notes directly to WeChat Official Accounts (browser automation, QR login, no AppID needed).",
   "author": "cygnus",
